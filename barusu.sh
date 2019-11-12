@@ -3,10 +3,10 @@
 #
 # OS 
 #
-echo 'Delete mail log'
-rm -f ~/Library/Containers/com.apple.mail/Data/Library/Logs/Mail/*.txt
-echo 'done'
-echo '--------------------------------------------------------------------------------'
+# echo 'Delete mail log'
+# # rm -f ~/Library/Containers/com.apple.mail/Data/Library/Logs/Mail/*.txt
+# echo 'done'
+# echo '--------------------------------------------------------------------------------'
 
 # 
 # other commands
@@ -22,7 +22,7 @@ fi
 if type docker > /dev/null 2>&1; then
     echo 'Found: docker'
     if docker ps -a > /dev/null 2>&1; then
-        # rm -rf  ~/Library/Containers/com.docker.docker/Data/*
+        rm -rf  ~/Library/Containers/com.docker.docker/Data/*
         docker ps -aq | xargs docker rm
         docker images -aq | xargs docker rmi
         echo 'docker image and container are deleted'
@@ -39,6 +39,13 @@ if type yarn > /dev/null 2>&1; then
     echo '--------------------------------------------------------------------------------'
 fi
 
+if type npm > /dev/null 2>&1; then
+    echo 'Found: npm'
+    npm cache clean -f
+    echo 'npm cache is cleaned'
+    echo '--------------------------------------------------------------------------------'
+fi
+
 
 if type gem > /dev/null 2>&1; then
     echo 'Found: gem'
@@ -51,6 +58,15 @@ if type pip > /dev/null 2>&1; then
     echo 'Found: pip'
     rm -rf ~/Library/Caches/pip/*
     echo 'pip cache is cleaned'
+    echo '--------------------------------------------------------------------------------'
+fi
+
+if type xcode-select > /dev/null 2>&1; then
+    echo 'Found: xcode'
+    sudo rm -rf ~/Library/Developer/Xcode/DerivedData/*
+    sudo rm -rf ~/Library/Developer/Xcode/iOS\ DeviceSupport/*
+    sudo rm -rf ~/Library/Developer/Xcode/iOS\ Device\ Logs/iOS\ Device\ Logs\ *
+    echo 'xcode is cleaned'
     echo '--------------------------------------------------------------------------------'
 fi
 
